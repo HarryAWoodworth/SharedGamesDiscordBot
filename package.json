@@ -1,0 +1,11 @@
+{
+  "name": "shared-games-bot",
+  "version": "1.0.0",
+  "description": "A bot to display the shared games of active members in the server.",
+  "main": "bot.js",
+  "author": "Harry Woodworth",
+  "dependencies": {
+    "discord.js": "^12.2.0",
+    "mongoose": "^5.9.24"
+  }
+}
