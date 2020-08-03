@@ -5,7 +5,7 @@ const GameLibrary = require('../models/gameLibrary');
 **/
 module.exports = {
     name: 'compare',
-    aliases: ['comp'],
+    aliases: ['comp','shared'],
     description: 'Compare games between active members.',
     cooldown: 1,
     async execute(message, args, config, bot, db) {

@@ -14,7 +14,7 @@ module.exports = {
             \n\"getsteamgames <steam_id>\", (alias -> addsteam): Add all steam games to your library.
             \n\"remove <index>,...,<index>\", (alias -> - , delete): Remove game(s) from your library.
             \n\"removeall\", (alias -> clear): Remove your entire library.
-            \n\"compare\", (alias -> comp): Compare libraries of users connected to the same voice channel.
+            \n\"compare\", (alias -> comp , shared): Compare libraries of users connected to the same voice channel.
         \`\`\``);
     },
 };
