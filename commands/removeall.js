@@ -6,6 +6,7 @@ const GameLibrary = require('../models/gameLibrary');
 module.exports = {
     name: 'removeall',
     description: 'Remove All Games',
+    aliases: ['clear'],
     dmOnly: true,
     cooldown: 10,
     async execute(message, args, config, bot, library) {

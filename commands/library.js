@@ -5,9 +5,8 @@ const GameLibrary = require('../models/gameLibrary');
 **/
 module.exports = {
     name: 'library',
-    aliases: ['lib','games'],
+    aliases: ['lib','games','list'],
     description: 'List Library',
-    dmOnly: true,
     cooldown: 3,
     async execute(message, args, config, bot, db) {
         // Get library
@@ -24,13 +23,22 @@ module.exports = {
             return;
         }
         var userLib = lib.gameList;
-        console.log(`Userlib: ${userLib}`);
+        //console.log(`Userlib: ${userLib}`);
         // Display games with indicies
-        userLib = userLib.split(',');
+        userLib = userLib.split(',').sort();
         for(i = 0; i < userLib.length; i++) {
             userLib[i] = `${i+1}\t${userLib[i]}`;
         }
         userLib = userLib.join('\n');
-        message.channel.send(`${message.author}'s Library:\n${userLib}`);
+        var str = `${message.author}'s Library:\n${userLib}`;
+        if(str.length <= 2000) {
+            message.channel.send(str);
+        } else {
+            var cutArr = str.match(/(.|[\r\n]){1,2000}/g);
+            for(var index = 0; index < cutArr.length; index++) {
+                message.channel.send(cutArr[index]);
+            }
+        }
+
     },
 };

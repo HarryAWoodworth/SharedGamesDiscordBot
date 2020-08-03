@@ -1,0 +1,6 @@
+{
+	"prefix": ">",
+	"token": "NzMyNjE1NzM5NTAwMTM0NDgw.Xw3NIg.sRMPxFi6Qn03xNVZb00rL22R8AY",
+	"mongoDbURI": "mongodb+srv://dbUser:DropDeadPiranha@discordcluster.u6fhm.mongodb.net/sharedgamesbotdatabase?retryWrites=true&w=majority",
+	"steamWebAPIKey": "3EBEA979A381E635B461DE9864BB36B0"
+}

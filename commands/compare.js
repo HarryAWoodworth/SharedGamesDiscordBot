@@ -36,7 +36,7 @@ module.exports = {
                 message.channel.send("There was an error reading from the database.");
                 return;
             }
-            if(firstMemberLibrary === undefined || firstMemberLibrary.gameList === undefined || firstMemberLibrary.gameList.length === 0) {
+            if(firstMemberLibrary === undefined || firstMemberLibrary === null || firstMemberLibrary.gameList === undefined || firstMemberLibrary.gameList.length === 0) {
                 message.channel.send(`${online.values().next().value.user} doesn't have a library! Add games to compare with other members.`);
                 return;
             }

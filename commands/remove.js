@@ -10,15 +10,20 @@ module.exports = {
     args: true,
     dmOnly: true,
     cooldown: 3,
-    usage: '<index>',
+    usage: '<index>,...,<index>',
     async execute(message, args, config, bot, db) {
         // Get the index and parse
-        const index = args[0];
-        if(isNaN(index)) {
-            message.channel.send(`Index needs to be a number.`);
-            return;
-        }
-        const indexToRemove = parseInt(index, 10);
+        const indiciesSet = new Set(args[0].split(','));
+        const indiciesStr = [...indiciesSet];
+        indiciesStr.forEach(index => {
+            if(isNaN(index)) {
+                message.channel.send(`Index needs to be a number: ${index}`);
+                return;
+            }
+        });
+        console.log(`Removing str indicies: ${indiciesStr}`);
+        const indicies = indiciesStr.map(index => parseInt(index,10) );
+        console.log(`Removing indicies: ${indicies}`);
         // Get the library
         var lib;
         try {
@@ -29,41 +34,38 @@ module.exports = {
             return;
         }
         var userLib = lib.gameList;
-        console.log(`Userlib: ${userLib}`);
+        //console.log(`Userlib: ${userLib}`);
         if(userLib === undefined) {
             message.channel.send(`${message.author}'s Library is empty.`);
             return;
         }
-        let games = userLib.split(',');
-        // Check index is valid
-        if(indexToRemove > games.length || indexToRemove < 0) {
-            message.channel.send(`Index is not valid`);
-            return;
-        }
-        let gameToRemove = games[indexToRemove-1];
-        // Remove library if going to be empty
-        if(games.length === 1) {
-            try {
-                await GameLibrary.findOneAndDelete({ userName: message.author }).exec();
-            } catch(err) {
-                console.log(err);
-                message.channel.send("There was an error updating the database.");
+        let games = userLib.split(',').sort();
+        var removedGameNames = [];
+        // Check validity of indicies
+        indicies.forEach(index => {
+            if(index > games.length || index < 0) {
+                message.channel.send(`Index is not valid: ${index}`);
                 return;
+            } else {
+                removedGameNames.push(games[index-1]);
             }
-            message.channel.send(`Removed \`${gameToRemove}\` from your library.`);
-            return;
+        });
+        // Create a new array with games that are not removed
+        var newLib = [];
+        for(index = 0; index < games.length; index++) {
+            if(!indicies.includes(index+1)) {
+                newLib.push(games[index]);
+            }
         }
-        // Remove game
-        /// Works thanks to Connor R.
-        games.splice(indexToRemove-1, 1);
-        games = games.join(',');
+        var newLibStr = newLib.join(',');
+        var removedStr = removedGameNames.join(',');
         try {
-            await GameLibrary.findOneAndUpdate({ userName: message.author }, { gameList: games }).exec();
+            await GameLibrary.findOneAndUpdate({ userName: message.author }, { gameList: newLibStr }).exec();
         } catch(err) {
             console.log(err);
             message.channel.send("There was an error updating the database.");
             return;
         }
-        message.channel.send(`Removed \`${gameToRemove}\` from your library.`);
+        message.channel.send(`Removed ${removedStr} from your library.`);
     },
 };

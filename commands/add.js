@@ -9,14 +9,14 @@ module.exports = {
     description: 'Add Game',
     args: true,
     dmOnly: true,
-    cooldown: 5,
+    cooldown: 2,
     usage: '<game name> | ... | <game name>',
     async execute(message, args, config, bot, db) {
         // Split args, remove duplicates
         const fullGameStr = args.join(' ');
         const uniqueSet = new Set(fullGameStr.split(" | "));
         const games = [...uniqueSet];
-        const gamesStr = games.join(", ");
+        const gamesStr = games.join(", ").toLowerCase();
         console.log(`Adding ${gamesStr} to library...`);
         // Get library
         var lib;
