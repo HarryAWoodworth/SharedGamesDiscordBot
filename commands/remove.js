@@ -39,7 +39,7 @@ module.exports = {
             message.channel.send(`${message.author}'s Library is empty.`);
             return;
         }
-        let games = userLib.split(',').sort();
+        let games = userLib.split('|').sort();
         var removedGameNames = [];
         // Check validity of indicies
         indicies.forEach(index => {
@@ -57,7 +57,7 @@ module.exports = {
                 newLib.push(games[index]);
             }
         }
-        var newLibStr = newLib.join(',');
+        var newLibStr = newLib.join('|');
         var removedStr = removedGameNames.join(',');
         try {
             await GameLibrary.findOneAndUpdate({ userName: message.author }, { gameList: newLibStr }).exec();

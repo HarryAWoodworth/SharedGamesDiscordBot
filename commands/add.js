@@ -16,7 +16,7 @@ module.exports = {
         const fullGameStr = args.join(' ');
         const uniqueSet = new Set(fullGameStr.split(" | "));
         const games = [...uniqueSet];
-        const gamesStr = games.join(", ").toLowerCase();
+        const gamesStr = games.join(",").toLowerCase();
         console.log(`Adding ${gamesStr} to library...`);
         // Get library
         var lib;
@@ -31,7 +31,7 @@ module.exports = {
         // If library is empty, make a new one with the games
         if(lib === undefined || lib === null) {
             console.log("No library yet, making new library...");
-            userLib = games.join(',');
+            userLib = games.join('|');
             const newEntry = new GameLibrary({userName: message.author, gameList: userLib});
             try {
                 await newEntry.save();
@@ -43,11 +43,11 @@ module.exports = {
         } else {
         // If not empty, add games to the library
             userLib = lib.gameList;
-            const checkList = userLib.split(',');
+            const checkList = userLib.split('|');
             // Prevent duplicates
             for(let i = 0; i < games.length; i++) {
                 if(!checkList.includes(games[i])) {
-                    userLib = userLib.concat(`,${games[i]}`);
+                    userLib = userLib.concat(`|${games[i]}`);
                 }
             }
             console.log(`New userLib: ${userLib}`);

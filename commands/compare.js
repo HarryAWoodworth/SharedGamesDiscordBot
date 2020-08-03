@@ -40,7 +40,7 @@ module.exports = {
                 message.channel.send(`${online.values().next().value.user} doesn't have a library! Add games to compare with other members.`);
                 return;
             }
-            var firstLib = firstMemberLibrary.gameList.split(',');
+            var firstLib = firstMemberLibrary.gameList.split('|');
             // Get the library of each member and compare to the first using filter
             // TODO fix comparing the first library to itself, not super important
             for(const [key, value] of online) {
@@ -59,7 +59,7 @@ module.exports = {
                     message.channel.send(`${value.user} doesn't have a library! Add games to compare with other members.`);
                     return;
                 }
-                var lib = memberLib.gameList.split(',');
+                var lib = memberLib.gameList.split('|');
                 firstLib = firstLib.filter(game => lib.includes(game));
             }
             if(firstLib.length === 0) {
@@ -67,7 +67,7 @@ module.exports = {
                 return;
             }
             // Send to channel with Discord code markdown
-            var sharedGames = firstLib.map(gameStr => { return `\"${gameStr}\"`; }).join('\n');
+            var sharedGames = firstLib.map(gameStr => { return `\"${gameStr}\"`; }).sort().join('\n');
             message.channel.send(`\`\`\`css\n[SHARED GAMES:]\`\`\`\`\`\`bash\n${sharedGames}\`\`\``);
         });
     },

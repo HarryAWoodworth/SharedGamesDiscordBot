@@ -25,7 +25,7 @@ module.exports = {
         var userLib = lib.gameList;
         //console.log(`Userlib: ${userLib}`);
         // Display games with indicies
-        userLib = userLib.split(',').sort();
+        userLib = userLib.split('|').sort();
         for(i = 0; i < userLib.length; i++) {
             userLib[i] = `${i+1}\t${userLib[i]}`;
         }
