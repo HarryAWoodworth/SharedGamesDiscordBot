@@ -13,7 +13,7 @@ module.exports = {
     usage: '<game name> | ... | <game name>',
     async execute(message, args, config, bot, db) {
         // Split args, remove duplicates
-        const fullGameStr = args.join(' ');
+        const fullGameStr = args.join(' ').toLowerCase();
         const uniqueSet = new Set(fullGameStr.split(" | "));
         const games = [...uniqueSet];
         const gamesStr = games.join(",").toLowerCase();
@@ -50,7 +50,7 @@ module.exports = {
                     userLib = userLib.concat(`|${games[i]}`);
                 }
             }
-            console.log(`New userLib: ${userLib}`);
+            // console.log(`New userLib: ${userLib}`);
             try {
                 await GameLibrary.findOneAndUpdate({ userName: message.author }, { gameList: userLib }).exec();
             } catch(err) {

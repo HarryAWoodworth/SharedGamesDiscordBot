@@ -21,9 +21,7 @@ module.exports = {
                 return;
             }
         });
-        console.log(`Removing str indicies: ${indiciesStr}`);
         const indicies = indiciesStr.map(index => parseInt(index,10) );
-        console.log(`Removing indicies: ${indicies}`);
         // Get the library
         var lib;
         try {

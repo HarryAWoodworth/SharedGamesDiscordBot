@@ -71,7 +71,7 @@ module.exports = {
                             userLib = userLib.concat(`|${games[i]}`);
                         }
                     }
-                    console.log(`New userLib: ${userLib}`);
+                    // console.log(`New userLib: ${userLib}`);
                     try {
                         await GameLibrary.findOneAndUpdate({ userName: message.author }, { gameList: userLib }).exec();
                     } catch(err) {
