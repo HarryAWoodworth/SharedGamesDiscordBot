@@ -92,17 +92,3 @@ module.exports = {
         });
     },
 };
-
-/**
-{
-    "appid":1289310,
-    "name":"Helltaker",
-    "playtime_forever":38,
-    "img_icon_url":"c4cfc91850d08836a6b49bc0509f7b0e3e17ffa4",
-    "img_logo_url":"0c4ca55c40cfc5d60e464548755a683d9a8bd35f",
-    "has_community_visible_stats":true,
-    "playtime_windows_forever":38,
-    "playtime_mac_forever":0,
-    "playtime_linux_forever":0
-}
-**/
