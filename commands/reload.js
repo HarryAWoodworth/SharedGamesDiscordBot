@@ -9,13 +9,13 @@ module.exports = {
     cooldown: 3,
 	execute(message, args, config, bot, library) {
 
-		//////// v THIS PART DOESNT WORK v
-		message.guild.members.fetch();
-		if(!message.member.hasPermission('ADMINISTRATOR')) {
-            message.channel.send('You do not have permission to shut down this bot.');
-            return;
-        }
-		//////// ^ THIS PART DOESNT WORK ^
+		// //////// v THIS PART DOESNT WORK v
+		// message.guild.members.fetch();
+		// if(!message.member.hasPermission('ADMINISTRATOR')) {
+        //     message.channel.send('You do not have permission to shut down this bot.');
+        //     return;
+        // }
+		// //////// ^ THIS PART DOESNT WORK ^
 
         // Check that the command is valid
         const commandName = args[0].toLowerCase();

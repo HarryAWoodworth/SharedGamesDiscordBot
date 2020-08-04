@@ -64,6 +64,14 @@ module.exports = {
             message.channel.send("There was an error updating the database.");
             return;
         }
-        message.channel.send(`Removed ${removedStr} from your library.`);
+        var str = `Removed ${removedStr} from your library.`;
+        if(str.length <= 2000) {
+            message.channel.send(str);
+        } else {
+            var cutArr = str.match(/(.|[\r\n]){1,2000}/g);
+            for(var index = 0; index < cutArr.length; index++) {
+                message.channel.send(cutArr[index]);
+            }
+        }
     },
 };

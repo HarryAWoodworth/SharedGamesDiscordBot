@@ -39,6 +39,5 @@ module.exports = {
                 message.channel.send(cutArr[index]);
             }
         }
-
     },
 };

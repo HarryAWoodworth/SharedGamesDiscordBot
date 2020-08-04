@@ -59,6 +59,14 @@ module.exports = {
                 return;
             }
         }
-        message.channel.send(`Added \`${gamesStr}\` to your multiplayer library.`);
+        var str = `Added \`${gamesStr}\` to your multiplayer library.`;
+        if(str.length <= 2000) {
+            message.channel.send(str);
+        } else {
+            var cutArr = str.match(/(.|[\r\n]){1,2000}/g);
+            for(var index = 0; index < cutArr.length; index++) {
+                message.channel.send(cutArr[index]);
+            }
+        }
     },
 };

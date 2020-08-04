@@ -68,7 +68,15 @@ module.exports = {
             }
             // Send to channel with Discord code markdown
             var sharedGames = firstLib.map(gameStr => { return `\"${gameStr}\"`; }).sort().join('\n');
-            message.channel.send(`\`\`\`css\n[SHARED GAMES:]\`\`\`\`\`\`bash\n${sharedGames}\`\`\``);
+            const messageStr = `\`\`\`css\n[SHARED GAMES:]\`\`\`\`\`\`bash\n${sharedGames}\`\`\``;
+            if(messageStr.length <= 2000) {
+                message.channel.send(messageStr);
+            } else {
+                var cutArr = messageStr.match(/(.|[\r\n]){1,2000}/g);
+                for(var index = 0; index < cutArr.length; index++) {
+                    message.channel.send(cutArr[index]);
+                }
+            }
         });
     },
 };
