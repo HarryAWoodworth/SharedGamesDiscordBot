@@ -66,6 +66,26 @@ module.exports = {
                 message.channel.send(`You have no similar games... sorry!`);
                 return;
             }
+            // Check if the compare is adding shared guild games
+            if(args.length > 0 && args[0].localeCompare("g") === 0) {
+                console.log(`Comparing with shared guild games...`);
+                // Get guild name
+                const guildName = message.channel.guild.name;
+                // get guild lib
+                var guildLib;
+                try {
+                    guildLib = await GameLibrary.findOne({ userName: guildName }, 'gameList').exec();
+                } catch(err) {
+                    console.log(err);
+                    message.channel.send("There was an error reading from the database to get guild shared games.");
+                    return;
+                }
+                // If games were retrieved, add to firstLib
+                if(guildLib !== undefined && guildLib !== null && guildLib.gameList !== undefined  && guildLib.gameList !== null) {
+                    console.log(`Adding guild games...`);
+                    guildLib.gameList.split('|').forEach(guildGame => firstLib.push(guildGame));
+                }
+            }
             // Send to channel with Discord code markdown
             var sharedGames = firstLib.map(gameStr => { return `\"${gameStr}\"`; }).sort().join('\n');
             const messageStr = `\`\`\`css\n[SHARED GAMES:]\`\`\`\`\`\`bash\n${sharedGames}\`\`\``;
