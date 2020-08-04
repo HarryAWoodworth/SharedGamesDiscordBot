@@ -16,8 +16,8 @@ module.exports = {
             \n\"removeall\", (alias -> clear): Remove your entire library.
             \n\"compare\", (alias -> comp , shared): Compare libraries of users connected to the same voice channel.
             \n\"guildlibrary\", (alias -> libg , gamesg , listg): List your guild's shared multiplayer library.
-            \n\"guildadd <game name> | ... | <game name>\", (alias -> +g , addg): Add game(s) to your guild's shared multiplayer library.
-            \n\"guildremove <index>,...,<index>\", (alias -> -g , deleteg): Remove game(s) from your guild's shared multiplayer library.
+            \n\"guildadd <game name> | ... | <game name>\", (alias -> +g , addg): Add game(s) to your guild\'s shared multiplayer library.
+            \n\"guildremove <index>,...,<index>\", (alias -> -g , deleteg): Remove game(s) from your guild\'s shared multiplayer library.
         \`\`\``);
     },
 };
