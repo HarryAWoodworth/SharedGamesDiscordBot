@@ -1,7 +1,7 @@
 const GameLibrary = require('../models/gameLibrary');
 
 /**
-    Remove a game at an index from a user's library
+    Remove game(s) at an index(es) from a user's library
 **/
 module.exports = {
     name: 'remove',
@@ -13,15 +13,18 @@ module.exports = {
     usage: '<index>,...,<index>',
     async execute(message, args, config, bot, db) {
         // Get the index and parse
-        const indiciesSet = new Set(args[0].split(','));
-        const indiciesStr = [...indiciesSet];
-        indiciesStr.forEach(index => {
-            if(isNaN(index)) {
-                message.channel.send(`Index needs to be a number: ${index}`);
-                return;
+        var indicies = new Array()
+	args.forEach(index => {
+	    index = index.split(',')[0];
+	    index = index.trim();
+	    console.log(index);
+            if(!isNaN(index)) {
+		console.log('We got a number! ' + index);
+                indicies.push(parseInt(index.trim(),10));
             }
         });
-        const indicies = indiciesStr.map(index => parseInt(index,10) );
+	indicies.sort();
+
         // Get the library
         var lib;
         try {
@@ -50,11 +53,11 @@ module.exports = {
         });
         // Create a new array with games that are not removed
         var newLib = [];
-        for(index = 0; index < games.length; index++) {
-            if(!indicies.includes(index+1)) {
+        for(index = games.length-1; index >= 0; index--) {
+	    if(!removedGameNames.includes(games[index])) {
                 newLib.push(games[index]);
             }
-        }
+	}        
         var newLibStr = newLib.join('|');
         var removedStr = removedGameNames.join(',');
         try {
@@ -73,5 +76,5 @@ module.exports = {
                 message.channel.send(cutArr[index]);
             }
         }
-    },
-};
+    }
+}
