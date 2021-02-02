@@ -6,6 +6,7 @@ const config = require('./config.json');
 // Initialize Discord Bot
 const bot = new Discord.Client();
 bot.commands = new Discord.Collection();
+const dmOnlyMode = config.dmOnly;
 
 // Initialize commands from command folder
 const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
@@ -44,8 +45,8 @@ bot.on('message', message => {
 		message.reply(`That is not a command. To see commands, try \`${config.prefix}help\`.`);
 		return;
 	}
-	// If dmOnly:true in command, make sure the command is in DMs
-	if(command.dmOnly && message.channel.type !== "dm") {
+	// If dmOnly:true in command and enabled in config, make sure the command is in DMs
+	if(command.dmOnly && message.channel.type !== "dm" && dmOnlyMode) {
 		return message.author.send(`Hello ${message.author}! Please use bot commands here in DMs to avoid clogging up server channels.`);
 	}
 	// Check that command is not on cooldown
