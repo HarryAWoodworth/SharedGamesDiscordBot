@@ -1,6 +1,27 @@
 const GameLibrary = require('../models/gameLibrary');
 const https = require('https');
 
+function lookupVanityKey(vanityKey, apiKey) {
+	return new Promise (resolve => {
+		var url = `https://api.steampowered.com/ISteamUser/ResolveVanityURL/v1/?key=${apiKey}&vanityurl=${vanityKey}`;
+		console.log(url); 
+		https.get(url, (resp) => {
+			var data = "";
+			resp.on('data', (chunk) => {
+				data += chunk;
+			});
+			resp.on('end', function() {
+				var steam64id = JSON.parse(data).response.steamid;
+				console.log(steam64id);
+				resolve(steam64id);
+			});
+		}).on('error', (err) => {
+			console.log(err);
+			resolve(vanityKey);
+		});
+	});
+}
+
 /**
     Add Steam library to your shared games library
 **/
@@ -15,17 +36,23 @@ module.exports = {
     async execute(message, args, config, bot, db) {
         console.log("Getting steam games...");
         // Get the steam id
-        const steamID = args[0];
+        var steamID = args[0];
         if(isNaN(steamID)) {
-            message.channel.send("Steam ID needs to be a number.");
-            return;
+		//lookup vanity key
+		steamID = await lookupVanityKey(steamID, config.steamWebAPIKey);
+		if(isNaN(steamID)) {
+			console.log(steamID);
+            		message.channel.send("Steam ID needs to be a number or valid vanity key.");
+            		return;
+		}
         }
         if(steamID.length !== 17) {
             message.channel.send("Steam ID needs to be 17 digits.");
             return;
         }
-        console.log("HTTP request...");
-        https.get(`https://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/?key=${config.steamWebAPIKey}&steamid=${steamID}&include_appinfo=true&include_played_free_games=true&format=json`, (resp) => {
+	var libraryUrl = `https://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/?key=${config.steamWebAPIKey}&steamid=${steamID}&include_appinfo=true&include_played_free_games=true&format=json`;
+        console.log(libraryUrl);
+	https.get(libraryUrl, (resp) => {
             var data = "";
             // A chunk of data has been recieved.
             resp.on('data', (chunk) => {
@@ -33,6 +60,9 @@ module.exports = {
             });
             // All data has been collected
             resp.on('end', async function(){
+		console.log("Retrieved response from steam");
+		console.log(data);
+		console.log(JSON.stringify(data));
                 // Get the games array
                 const gameArr = JSON.parse(data).response.games;
                 var games = [];
