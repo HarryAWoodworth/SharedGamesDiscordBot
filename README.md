@@ -13,7 +13,7 @@ Built using Discord.js and MongoDB Atlas Cloud.
 ![compare command](https://i.imgur.com/AFYNTGy.png)
 
 
-#Config
+# Config
 
 Create a config.json file in the root directory for the bot like below
 
