@@ -1,10 +1,12 @@
 const fs = require('fs');
 const Discord = require('discord.js');
+const DisTube = require('distube');
 const mongoose = require('mongoose');
 const config = require('./config.json');
 
 // Initialize Discord Bot
 const bot = new Discord.Client();
+const distube = new DisTube.default(bot);
 bot.commands = new Discord.Collection();
 const dmOnlyMode = config.dmOnly;
 
@@ -75,7 +77,11 @@ bot.on('message', message => {
     }
     // Execute command
     try {
-        command.execute(message, args, config, bot, db);
+		if(command.distube) {
+			command.execute(message, args, config, bot, db, distube);
+		} else {
+			command.execute(message, args, config, bot, db);
+		}
     } catch (error) {
         console.error(error);
         message.reply('There was an error executing that command.');
