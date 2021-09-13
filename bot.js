@@ -5,7 +5,7 @@ const mongoose = require('mongoose');
 const config = require('./config.json');
 
 // Initialize Discord Bot
-const bot = new Discord.Client();
+const bot = new Discord.Client({ws: {intents: ['GUILD_MESSAGES', 'GUILD_PRESENCES', 'GUILD_VOICE_STATES']}});
 const distube = new DisTube.default(bot);
 bot.commands = new Discord.Collection();
 const dmOnlyMode = config.dmOnly;
