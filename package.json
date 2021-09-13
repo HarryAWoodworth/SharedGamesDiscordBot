@@ -3,10 +3,13 @@
   "version": "1.0.0",
   "description": "A bot to display the shared games of active members in the server.",
   "main": "bot.js",
-  "contributors": ["Harry Woodworth", "Gwen Bewley"],
+  "contributors": [
+    "Harry Woodworth",
+    "Gwen Bewley"
+  ],
   "dependencies": {
     "axios": "^0.21.4",
-    "discord.js": "^12.5.3",
+    "discord.js": "^13.1.0",
     "distube": "^3.0.0-beta.38",
     "mongoose": "^5.9.24"
   }
