@@ -5,6 +5,7 @@
   "main": "bot.js",
   "author": "Harry Woodworth",
   "dependencies": {
+    "axios": "^0.21.4",
     "discord.js": "^12.2.0",
     "mongoose": "^5.9.24"
   }
