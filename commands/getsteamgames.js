@@ -57,7 +57,7 @@ module.exports = {
             // Get library
             var lib;
             try {
-                lib = await GameLibrary.findOne({ userName: message.author }, 'gameList').exec();
+                lib = GameLibrary.findOne({ userName: message.author }, 'gameList').exec();
             } catch(err) {
                 console.log(err);
                 message.channel.send("There was an error reading from the database.");
@@ -70,7 +70,7 @@ module.exports = {
                 userLib = games.join('|');
                 const newEntry = new GameLibrary({userName: message.author, gameList: userLib});
                 try {
-                    await newEntry.save();
+                    newEntry.save();
                 } catch(err) {
                     console.log(err);
                     message.channel.send("There was an error creating a new database entry.");
@@ -87,7 +87,7 @@ module.exports = {
                 }
                 // console.log(`New userLib: ${userLib}`);
                 try {
-                    await GameLibrary.findOneAndUpdate({ userName: message.author }, { gameList: userLib }).exec();
+                    GameLibrary.findOneAndUpdate({ userName: message.author }, { gameList: userLib }).exec();
                 } catch(err) {
                     console.log(err);
                     message.channel.send("There was an error updating the database.");
