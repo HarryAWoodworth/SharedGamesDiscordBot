@@ -1,11 +1,14 @@
 const fs = require('fs');
 const Discord = require('discord.js');
+const DisTube = require('distube');
 const mongoose = require('mongoose');
 const config = require('./config.json');
 
 // Initialize Discord Bot
-const bot = new Discord.Client();
+const bot = new Discord.Client({intents: [Discord.Intents.FLAGS.GUILDS, Discord.Intents.FLAGS.GUILD_MEMBERS, Discord.Intents.FLAGS.GUILD_MESSAGES, Discord.Intents.FLAGS.GUILD_PRESENCES, Discord.Intents.FLAGS.GUILD_VOICE_STATES]});
+const distube = new DisTube(bot, { leaveOnFinish: true});
 bot.commands = new Discord.Collection();
+const dmOnlyMode = config.dmOnly;
 
 // Initialize commands from command folder
 const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
@@ -44,8 +47,8 @@ bot.on('message', message => {
 		message.reply(`That is not a command. To see commands, try \`${config.prefix}help\`.`);
 		return;
 	}
-	// If dmOnly:true in command, make sure the command is in DMs
-	if(command.dmOnly && message.channel.type !== "dm") {
+	// If dmOnly:true in command and enabled in config, make sure the command is in DMs
+	if(command.dmOnly && message.channel.type !== "dm" && dmOnlyMode) {
 		return message.author.send(`Hello ${message.author}! Please use bot commands here in DMs to avoid clogging up server channels.`);
 	}
 	// Check that command is not on cooldown
@@ -74,12 +77,32 @@ bot.on('message', message => {
     }
     // Execute command
     try {
-        command.execute(message, args, config, bot, db);
+		if(command.distube) {
+			command.execute(message, args, config, bot, db, distube);
+		} else {
+			command.execute(message, args, config, bot, db);
+		}
     } catch (error) {
         console.error(error);
         message.reply('There was an error executing that command.');
     }
 });
+
+// DisTube event listeners
+distube
+    .on("playSong", (message, queue, song) => message.channel.send(
+        `Playing \`${song.name}\` - \`${song.formattedDuration}\``
+    ))
+    .on("addSong", (message, queue, song) => message.channel.send(
+        `Added ${song.name} - \`${song.formattedDuration}\` to the queue`
+    ))
+		.on("finish", (message, queue, song) => message.channel.send(
+        `No more songs to play, bye!`
+    ))
+    .on("error", (message, e) => {
+        console.error(e)
+        message.channel.send("An error encountered: " + e);
+    });
 
 // Log the bot in
 bot.login(config.token);
