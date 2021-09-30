@@ -1,22 +1,25 @@
 {
-  "name": "shared-games-bot",
+  "name": "sharedgamesdiscordbot",
   "version": "1.0.0",
-  "description": "A bot to display the shared games of active members in the server.",
+  "description": "SHARED GAMES DISCORD BOT",
   "main": "bot.js",
-  "contributors": [
-    "Harry Woodworth",
-    "Gwen Bewley"
-  ],
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/HarryAWoodworth/SharedGamesDiscordBot.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/HarryAWoodworth/SharedGamesDiscordBot/issues"
+  },
+  "homepage": "https://github.com/HarryAWoodworth/SharedGamesDiscordBot#readme",
   "dependencies": {
-    "@discordjs/opus": "^0.6.0",
-    "@discordjs/voice": "^0.6.0",
     "axios": "^0.21.4",
-    "discord.js": "^13.1.0",
-    "distube": "^3.0.0-beta.38",
-    "ffmpeg-static": "^4.4.0",
-    "libsodium": "^0.7.9",
-    "mongoose": "^5.9.24",
-    "node-opus": "^0.3.3",
-    "sodium": "^3.0.2"
+    "discord.js": "^12.5.3",
+    "distube": "^2.8.18",
+    "mongoose": "^6.0.8"
   }
 }

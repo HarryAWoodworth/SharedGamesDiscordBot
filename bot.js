@@ -18,7 +18,7 @@ for (const file of commandFiles) {
 }
 
 // Connect to Mongodb
-mongoose.connect(config.mongoDbURI, { useNewUrlParser: true, useCreateIndex: true, useFindAndModify: false, useUnifiedTopology: true });
+mongoose.connect(config.mongoDbURI, { useNewUrlParser: true, useUnifiedTopology: true });
 const db = mongoose.connection;
 db.on('error', err => console.error('MongoDb Connection Error:', err));
 db.once('open', function() {
