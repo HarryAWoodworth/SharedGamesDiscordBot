@@ -6,10 +6,10 @@ function lookupVanityKey(vanityKey, apiKey) {
 		var url = `https://api.steampowered.com/ISteamUser/ResolveVanityURL/v1/?key=${apiKey}&vanityurl=${vanityKey}`;
 		
         axios.get(url).then((response) => {
-            if(response.data.success) {
-                resolve(response.data.steamid)
+            if(response.data.response.success) {
+                resolve(response.data.response.steamid)
             } else {
-                console.log(response.data.error);
+                console.log(response.data.response.error);
 			resolve(vanityKey);
             }
         });
@@ -46,7 +46,7 @@ module.exports = {
         }
         var libraryUrl = `https://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/?key=${config.steamWebAPIKey}&steamid=${steamID}&include_appinfo=true&include_played_free_games=true&format=json`;
 
-        axios.get(libraryUrl, (response) => {
+        axios.get(libraryUrl).then((response) => {
             // Get the games array
             const gameArr = response.data.response.games; //valve has response in their JSON, makes this look a little funny especially since everything is inside that response object
             var games = [];
@@ -58,6 +58,7 @@ module.exports = {
             var lib;
             try {
                 lib = GameLibrary.findOne({ userName: message.author }, 'gameList').exec();
+	 	console.log("Lib from DB: " + JSON.stringify(lib));
             } catch(err) {
                 console.log(err);
                 message.channel.send("There was an error reading from the database.");
@@ -78,7 +79,8 @@ module.exports = {
                 }
             } else { // If not empty, add games to the library
                 userLib = lib.gameList;
-                const checkList = userLib.split('|');
+                console.log(JSON.stringify(lib));
+		    const checkList = userLib.split('|');
                 // Prevent duplicates
                 for(let i = 0; i < games.length; i++) {
                     if(!checkList.includes(games[i])) {
