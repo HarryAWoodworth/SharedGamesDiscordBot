@@ -3,7 +3,7 @@
 **/
 module.exports = {
     name: 'stop',
-    aliases: ['fuckoff','fuck'],
+    aliases: ['fuckoff','fuck off'],
     description: 'Stop the bot playing music, disconnect it',
     cooldown: 3,
     distube: true,
