@@ -16,8 +16,8 @@ module.exports = {
             \n\"removeall\", (alias -> clear): Remove your entire library.
             \n\"compare <optional_g>\", (alias -> comp , shared): Compare libraries of users connected to the same voice channel. Use \`compare g\` to add in the shared guild library.
             \n\"guildlibrary\", (alias -> libg , gamesg , listg): List your guild\`s shared multiplayer library.
-            \n\"guildadd <game name> | ... | <game name>\", (alias -> +g , addg): Add game(s) to your guild\'s shared multiplayer library.
-            \n\"guildremove <index>,...,<index>\", (alias -> -g , deleteg): Remove game(s) from your guild\'s shared multiplayer library.
+            \n\"guildadd <game name> | ... | <game name>\", (alias -> +g , addg): Add game(s) to your guild\`s shared multiplayer library.
+            \n\"guildremove <index>,...,<index>\", (alias -> -g , deleteg): Remove game(s) from your guild\`s shared multiplayer library.
             \n\"play <video name>\": Play video over bot audio.
             \n\"stop\", (alias -> fuckoff): Disconnect bot from voice channel.
             \n\"skip\": Skip current song.
