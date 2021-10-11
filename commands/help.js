@@ -19,7 +19,7 @@ module.exports = {
             \n\"guildadd <game name> | ... | <game name>\", (alias -> +g , addg): Add game(s) to your guild\`s shared multiplayer library.
             \n\"guildremove <index>,...,<index>\", (alias -> -g , deleteg): Remove game(s) from your guild\`s shared multiplayer library.
             \n\"play <video name>\": Play video over bot audio.
-            \n\"stop\", (alias -> fuckoff): Disconnect bot from voice channel.
+            \n\"stop\", (alias -> fuckoff , fuck): Disconnect bot from voice channel.
             \n\"skip\": Skip current song.
         \`\`\``);
     },
