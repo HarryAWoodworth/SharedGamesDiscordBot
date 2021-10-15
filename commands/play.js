@@ -9,6 +9,7 @@ module.exports = {
     args: true,
     distube: true,
     async execute(message, args, config, bot, db, distube) {
-        distube.play(message, args.join(' '));
+      console.log("PLaying a song")
+      distube.play(message, args.join(' '));
     },
 };
