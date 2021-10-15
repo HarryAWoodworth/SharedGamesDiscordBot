@@ -6,7 +6,7 @@ const config = require('./config.json');
 
 // Initialize Discord Bot
 const bot = new Discord.Client({intents: [Discord.Intents.FLAGS.GUILDS, Discord.Intents.FLAGS.GUILD_MEMBERS, Discord.Intents.FLAGS.GUILD_MESSAGES, Discord.Intents.FLAGS.GUILD_PRESENCES, Discord.Intents.FLAGS.GUILD_VOICE_STATES]});
-const distube = new DisTube(bot, { leaveOnFinish: true});
+const distube = new DisTube(bot, { leaveOnFinish: true, nsfw: true, searchSongs: 1 });
 bot.commands = new Discord.Collection();
 const dmOnlyMode = config.dmOnly;
 
